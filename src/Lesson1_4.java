@@ -16,19 +16,15 @@ class SortMassive {
         nElems++;
     }
 
-    private void swap(int first, int second) {
-        int temp = mass[first];
-        mass[first] = mass[second];
-        mass[second] = temp;
-    }
-
-
     public void sort() {
         int in, out;
-        for (out = nElems - 1; out > 1; out--)
+        for (out = nElems - 1; out > 0; out--)
             for (in = 0; in < out; in++)
-                if (mass[in] > mass[in + 1])
-                    swap(in, in + 1);
+                if (mass[in] > mass[in + 1]) {
+                    int temp = mass[in];
+                    mass[in] = mass[in+1];
+                    mass[in+1] = temp;
+                }
     }
 
     public void display() {
