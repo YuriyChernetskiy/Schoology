@@ -9,9 +9,8 @@ class ConsoleMenu {
         private int menuChoice;
         private int capacityValue;
         private int elementValue;
-        private boolean intChecker;
 
-        public void getMenu() {
+        public void startMenu() {
 
             System.out.println("============MENU FOR ARRAY====================");
             System.out.println("==    1. Set capacity of array              ==");
@@ -27,7 +26,7 @@ class ConsoleMenu {
             processingChoice();
         }
 
-        private boolean prepareArray(){
+        private boolean preparedArray(){
             if (arrayHolder.capacityNotSet()) {
                 System.out.println("Set the capacity of array!!!");
                 return true;
@@ -41,18 +40,14 @@ class ConsoleMenu {
         }
 
         private int input(){
-            int  input = 0;
-            do {
+            for (;;) {
                 if (scanner.hasNextInt()) {
-                    input  = scanner.nextInt();
-                    intChecker = true;
-                } else{
+                    return scanner.nextInt();
+                } else {
                     scanner.next();
                     System.out.println(" It's not a number, Please try again!!!");
-                    intChecker = false;
                 }
-            }while(!intChecker);
-            return input;
+            }
         }
 
 
@@ -65,14 +60,12 @@ class ConsoleMenu {
                     arrayHolder.setArrCapacity(capacityValue);
                     System.out.println("Capacity is set");
                     System.out.println();
-                    getMenu();
+                    startMenu();
                     break;
 
                 case 2:
-                    if (arrayHolder.capacityNotSet()) {
+                    if (arrayHolder.capacityNotSet())
                         System.out.println("Set the capacity of array!!!");
-                        getMenu();
-                    }
                     else {
                         System.out.println("Fill the array");
                         for (int i=0; i<capacityValue; i++) {
@@ -80,38 +73,38 @@ class ConsoleMenu {
                             arrayHolder.addArrElement(elementValue);
                         }
                         System.out.println("Array is filled");
-                        getMenu();
                     }
+                    startMenu();
                     break;
                 case 3:
 
-                    if (prepareArray() == true)
-                        getMenu();
+                    if (preparedArray())
+                        startMenu();
                     else {
                         System.out.print("Element of array: ");
                         arrayHolder.showArray();
-                        getMenu();
+                        startMenu();
                     }
                     break;
 
                 case 4:
-                    if (prepareArray() == true)
-                        getMenu();
+                    if (preparedArray())
+                        startMenu();
                     else {
                         System.out.println("Sorted elements of array: ");
                         arrayHolder.sortArray();
-                        getMenu();
+                        startMenu();
                     }
                     break;
 
                 case 5:
-                    if (prepareArray() == true)
-                        getMenu();
+                    if (preparedArray())
+                        startMenu();
                     else {
                         System.out.print("Type the number to find it in array: ");
                         elementValue = input();
                         arrayHolder.findElement(elementValue);
-                        getMenu();
+                        startMenu();
                     }
                     break;
 
@@ -119,7 +112,7 @@ class ConsoleMenu {
                     break;
 
                 default:
-                    getMenu();
+                    startMenu();
             }
         }
     }

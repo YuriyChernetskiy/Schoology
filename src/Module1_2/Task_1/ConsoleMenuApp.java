@@ -5,6 +5,6 @@ public class ConsoleMenuApp {
 
         ConsoleMenu conMenu = new ConsoleMenu();
 
-        conMenu.getMenu();
+        conMenu.startMenu();
     }
 }
