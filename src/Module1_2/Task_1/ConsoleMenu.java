@@ -59,8 +59,6 @@ class ConsoleMenu {
                     capacityValue = input();
                     arrayHolder.setArrCapacity(capacityValue);
                     System.out.println("Capacity is set");
-                    System.out.println();
-                    startMenu();
                     break;
 
                 case 2:
@@ -74,16 +72,14 @@ class ConsoleMenu {
                         }
                         System.out.println("Array is filled");
                     }
-                    startMenu();
                     break;
-                case 3:
 
+                case 3:
                     if (preparedArray())
                         startMenu();
                     else {
                         System.out.print("Element of array: ");
                         arrayHolder.showArray();
-                        startMenu();
                     }
                     break;
 
@@ -93,7 +89,6 @@ class ConsoleMenu {
                     else {
                         System.out.println("Sorted elements of array: ");
                         arrayHolder.sortArray();
-                        startMenu();
                     }
                     break;
 
@@ -104,15 +99,12 @@ class ConsoleMenu {
                         System.out.print("Type the number to find it in array: ");
                         elementValue = input();
                         arrayHolder.findElement(elementValue);
-                        startMenu();
                     }
                     break;
 
                 case 6:
-                    break;
-
-                default:
-                    startMenu();
+                    return;
             }
+            startMenu();
         }
     }
