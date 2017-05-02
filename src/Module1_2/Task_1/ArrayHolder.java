@@ -55,15 +55,16 @@ public class ArrayHolder {
         System.out.println(Arrays.toString(mass));
     }
 
-    public void findElement(int num){
+    public void findElement(int num) {
         for (int element : mass) {
             positionOfElem++;
             if (element == num) {
                 System.out.println("Position of element in arrray is " + positionOfElem);
-                break;
+                positionOfElem = 0;
+                return;
             }
         }
-        if (positionOfElem == 0)
-            System.out.println("Element was not found");
+        System.out.println("Element was not found");
+        positionOfElem = 0;
     }
 }
