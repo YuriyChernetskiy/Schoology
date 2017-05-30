@@ -21,9 +21,8 @@ public class PersistentCollection {
     public void add(Integer element) {
         if (list.size() == size) {
             list.remove(0);
-            list.add(element);
-        } else
-            list.add(element);
+        }
+        list.add(element);
 
     }
 

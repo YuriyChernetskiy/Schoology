@@ -9,7 +9,7 @@ public class DataOperations {
     List<Integer> list = new ArrayList<Integer>();
 
     public void add(int element) {
-        if (list.size() == 0)
+        if (list.isEmpty())
             list.add(element);
         else {
             list.add(element);
@@ -19,7 +19,7 @@ public class DataOperations {
     }
 
     public void remove(Integer element) {
-        if (list.size() == 0)
+        if (list.isEmpty())
             throw new NoSuchElementException();
         else if (!list.contains(element))
             System.out.println("NoSuchElement in Data");
