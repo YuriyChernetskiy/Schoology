@@ -3,6 +3,8 @@ package Multithreading.Task3;
 import javafx.application.Platform;
 import javafx.scene.shape.Rectangle;
 
+import java.util.concurrent.TimeUnit;
+
 public class RectangleRunnable implements Runnable {
     private double newX;
     private double newY;
@@ -22,7 +24,7 @@ public class RectangleRunnable implements Runnable {
         rectangle.setX(++newX);
         rectangle.setY(++newY);
         try {
-            Thread.sleep(20);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
         }
     }
@@ -31,18 +33,23 @@ public class RectangleRunnable implements Runnable {
         rectangle.setX(--newX);
         rectangle.setY(--newY);
         try {
-            Thread.sleep(20);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
         }
     }
 
     @Override
     public void run() {
-        int direction = genRandomNumber(1, 1);
+        //int direction = genRandomNumber(1, 1);
 
-        if (direction == 1) {
+     //   if (direction == 1) {
 
             while (true) {
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+
+
                 while (rectangle.getY() != (500 - rectangle.getHeight())) {
                     if (rectangle.getX() != (500 - rectangle.getWidth()))
                         movement();
@@ -50,40 +57,12 @@ public class RectangleRunnable implements Runnable {
 
                 while (rectangle.getY() != 0) {
                     if (rectangle.getX() != 0)
-                    reverseMovement();
+                        reverseMovement();
                 }
+                    }
+                });
             }
-        }
-
-//        if (direction == 2) {
-//            while (true) {
-//
-//                while (rectangle.getX() != 0 || rectangle.getY() !=0)
-//                    reverseMovement();
-//                while (rectangle.getX() != 350 || rectangle.getY() !=350)
-//                    movement();
-//
-//            }
-
-//            if (direction == 3) {
-//                while (true) {
-//
-//                    while (rectangle.getX() != 0)
-//                        reverseMovement();
-//                    while (rectangle.getX() != 350)
-//                        movement();
-//                }
-//            }
-//
-//            if (direction == 4) {
-//                while (true) {
-//
-//                    while (rectangle.getX() != 0)
-//                        reverseMovement();
-//                    while (rectangle.getX() != 350)
-//                        movement();
-//                }
-//            }
-        }
+        //}
 
     }
+}

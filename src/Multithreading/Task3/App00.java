@@ -3,6 +3,7 @@ package Multithreading.Task3;
 import Multithreading.Task3.RectangleRunnable;
 import com.sun.org.apache.regexp.internal.RE;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -18,9 +19,10 @@ import java.util.Random;
 
 import static Multithreading.Task3.RectangleRunnable.genRandomNumber;
 
+
 public class App00 extends Application {
     private static int quantity;
-   private Thread[] threads;
+    private Thread[] threads;
 
     private List<Rectangle> rectangles = new ArrayList<Rectangle>();
 
