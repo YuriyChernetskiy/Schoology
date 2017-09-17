@@ -9,6 +9,8 @@ public class RectangleRunnable implements Runnable {
     private double newX;
     private double newY;
     private Rectangle rectangle;
+    private final String[] direction = {"LEFT_UP", "LEFT_DOWN", "RIGHT_UP", "RIGHT_DOWN"};
+    private String newDirection;
 
     public RectangleRunnable(Rectangle oldRectangle) {
         this.rectangle = oldRectangle;
@@ -20,49 +22,85 @@ public class RectangleRunnable implements Runnable {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 
-    private void movement() {
-        rectangle.setX(++newX);
-        rectangle.setY(++newY);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
+    private void goLeftUp() {
+        if (newX != 0 && (newY != 0)) {
+            newX--;
+            newY--;
+        } else if (newX == 0) {
+            newDirection = "RIGHT_UP";
+        } else if (newY == 0) {
+            newDirection = "LEFT_DOWN";
         }
     }
 
-    private void reverseMovement() {
-        rectangle.setX(--newX);
-        rectangle.setY(--newY);
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
+    private void goLeftDown() {
+        if ((newX != 0) && (newY != (500 - rectangle.getHeight()))) {
+            newX--;
+            newY++;
+        } else if (newX == 0) {
+            newDirection = "RIGHT_DOWN";
+        } else if (newY == 500 - rectangle.getHeight()) {
+            newDirection = "LEFT_UP";
+        }
+    }
+
+    private void goRightUp() {
+        if (newX != (500 - rectangle.getWidth()) && (newY != 0)) {
+            newX++;
+            newY--;
+        } else if (newX == 500 - rectangle.getWidth()) {
+            newDirection = "LEFT_UP";
+        } else if (newY == 0) {
+            newDirection = "RIGHT_DOWN";
+        }
+    }
+
+    private void goRightDown() {
+        if ((newX != (500 - rectangle.getWidth())) && (newY != (500 - rectangle.getHeight()))) {
+            newX++;
+            newY++;
+        } else if (newX == (500 - rectangle.getWidth())) {
+            newDirection = "LEFT_DOWN";
+        } else if (newY == (500 - rectangle.getHeight())) {
+            newDirection = "RIGHT_UP";
+        }
+    }
+
+    private void movement() {
+        switch (newDirection) {
+            case "LEFT_UP":
+                goLeftUp();
+                break;
+            case "LEFT_DOWN":
+                goLeftDown();
+                break;
+            case "RIGHT_UP":
+                goRightUp();
+                break;
+            case "RIGHT_DOWN":
+                goRightDown();
+                break;
         }
     }
 
     @Override
     public void run() {
-        //int direction = genRandomNumber(1, 1);
+        int pos = genRandomNumber(0, 3);
+        newDirection = direction[pos];
 
-     //   if (direction == 1) {
+        while (true) {
+            movement();
 
-            while (true) {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-
-
-                while (rectangle.getY() != (500 - rectangle.getHeight())) {
-                    if (rectangle.getX() != (500 - rectangle.getWidth()))
-                        movement();
-                }
-
-                while (rectangle.getY() != 0) {
-                    if (rectangle.getX() != 0)
-                        reverseMovement();
-                }
-                    }
-                });
+            Platform.runLater(() -> {
+                rectangle.setX(newX);
+                rectangle.setY(newY);
+            });
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        //}
-
+        }
     }
 }
+
